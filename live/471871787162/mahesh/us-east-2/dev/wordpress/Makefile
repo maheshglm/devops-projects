@@ -23,5 +23,10 @@ destroy: ## Destroy
 	@cd lb && terragrunt destroy --auto-approve
 	@cd mysql && terragrunt destroy --auto-approve
 
+outputs: ## Destroy
+	@cd asg && terragrunt output
+	@cd lb && terragrunt output
+	@cd mysql && terragrunt output
+
 help:
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%30s\033[0m : %s\n", $$1, $$2}' $(MAKEFILE_LIST)
