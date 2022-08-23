@@ -32,7 +32,7 @@ inputs = {
   unique_id     = dependency.unique_id.outputs.id
 
   vpc_id              = dependency.vpc.outputs.vpc_id
-  allowed_cidr_blocks = dependency.vpc.outputs.public_subnets_cidr_blocks
+  allowed_cidr_blocks = dependency.vpc.outputs.private_subnets_cidr_blocks
 
   subnet_ids           = dependency.vpc.outputs.database_subnets
   rds_db_name          = "${local.project_name}db"
