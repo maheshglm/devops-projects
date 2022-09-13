@@ -4,12 +4,14 @@ locals {
   region_vars      = read_terragrunt_config(find_in_parent_folders("region.hcl"))
   customer_vars    = read_terragrunt_config(find_in_parent_folders("customer.hcl"))
 
+  project_vars    = read_terragrunt_config(find_in_parent_folders("project.hcl"))
+  project_name     = local.project_vars.locals.project_name
+
   customer_name    = local.customer_vars.locals.customer_name
   environment_name = local.environment_vars.locals.environment
   aws_account_id   = local.account_vars.locals.aws_account_id
   aws_region       = local.region_vars.locals.aws_region
   name_prefix      = format("%s-%s", local.customer_name, local.environment_name)
-  project_name     = "wordpress"
 }
 
 terraform {

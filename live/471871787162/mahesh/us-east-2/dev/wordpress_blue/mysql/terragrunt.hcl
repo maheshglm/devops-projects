@@ -3,10 +3,11 @@ locals {
   account_vars     = read_terragrunt_config(find_in_parent_folders("account.hcl"))
   region_vars      = read_terragrunt_config(find_in_parent_folders("region.hcl"))
   customer_vars    = read_terragrunt_config(find_in_parent_folders("customer.hcl"))
+  project_vars     = read_terragrunt_config(find_in_parent_folders("project.hcl"))
 
   customer_name    = local.customer_vars.locals.customer_name
   environment_name = local.environment_vars.locals.environment
-  project_name     = "wordpress"
+  project_name     = local.project_vars.locals.project_name
 }
 
 terraform {
@@ -35,7 +36,7 @@ inputs = {
   allowed_cidr_blocks = dependency.vpc.outputs.private_subnets_cidr_blocks
 
   subnet_ids           = dependency.vpc.outputs.database_subnets
-  rds_db_name          = "${local.project_name}db"
+  rds_db_name          = replace("${local.project_name}db", "-", "")
   rds_engine           = "mysql"
   rds_engine_version   = "8.0.27"
   major_engine_version = "8.0"

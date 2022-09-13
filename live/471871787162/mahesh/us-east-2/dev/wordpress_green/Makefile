@@ -10,7 +10,7 @@ K := $(foreach cmd,$(EXECUTABLES),\
 
 plan: ## Plan
 	@cd mysql && terragrunt plan
-	@cd lb && terragrunt plan
+	#@cd lb && terragrunt plan
 	@cd asg && terragrunt plan
 
 apply: ## Apply
