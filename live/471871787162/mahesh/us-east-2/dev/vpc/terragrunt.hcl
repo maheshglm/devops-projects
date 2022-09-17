@@ -7,6 +7,7 @@ locals {
   environment_name = local.environment_vars.locals.environment
   aws_account_id   = local.account_vars.locals.aws_account_id
   aws_region       = local.region_vars.locals.aws_region
+  eks_cluster      = "demo-cluster"
 }
 
 
@@ -37,4 +38,16 @@ inputs = {
   enable_dns_support   = true
   enable_dns_hostnames = true
   single_nat_gateway   = true
+
+  private_subnet_tags = {
+    "Subnet"                                     = "private",
+    "kubernetes.io/role/internal-elb"            = "1",
+    "kubernetes.io/cluster/${local.eks_cluster}" = "shared"
+  }
+
+  public_subnet_tags = {
+    "Subnet"                                     = "public",
+    "kubernetes.io/role/internal-elb"            = "1",
+    "kubernetes.io/cluster/${local.eks_cluster}" = "shared"
+  }
 }
